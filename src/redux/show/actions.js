@@ -1,33 +1,56 @@
 import moment from "moment/moment";
 import {createAction} from "@reduxjs/toolkit";
+import {convertShowApiResponse} from "../../utils/converters";
+import {createShowApiCall, getAllShowsApiCall} from "../../api/show";
 
-export const CREATE_SHOW = createAction('SHOW/CREATE');
-export const UPDATE_SHOW = createAction('SHOW/UPDATE');
-export const DELETE_SHOW = createAction('SHOW/DELETE');
-export const BUY_TICKET = createAction('SHOW/BUY');
+export const createShow = createAction('SHOW/CREATE');
+export const updateShow = createAction('SHOW/UPDATE');
+export const deleteShow = createAction('SHOW/DELETE');
+export const buyTicket = createAction('SHOW/BUY');
 
 export const getMovieByID = (state, id) => state.movie[id];
 export const getRoomByID = (state, id) => state.room[id];
 
+export const getAllShows = () => (dispatch, getState) => {
+   getAllShowsApiCall()
+        .then((response) => {
+            const allShows = response.data;
+
+            allShows.forEach(show => {
+                dispatch(createShow(convertShowApiResponse(show)))
+            });
+        })
+        .catch(error => console.error(`Error: ${error}`));
+};
+
 export const showCreate = (payload) => (dispatch, getState) => {
-    payload.showID = IDGenerator('show', getState());
     payload = prepareShowData(getState, payload);
-    dispatch(CREATE_SHOW(payload));
+   createShowApiCall(payload)
+        .then((response) => {
+            response.data.showID = response.data.id;
+            delete response.data.id;
+            dispatch(createShow(response.data));
+        })
 }
 
 export const showUpdate = (payload) => (dispatch, getState) => {
     payload = prepareShowData(getState, payload);
-    dispatch(UPDATE_SHOW(payload));
+    // updateShowApiCall(payload)
+    //     .then((response) => {
+    //         console.log(response.data);
+    //         dispatch(updateShow(response.data));
+    //     })
 }
 
+
 export const showDelete = (payload) => (dispatch) => {
-    dispatch(DELETE_SHOW(payload));
+    dispatch(deleteShow(payload));
 }
 
 export const ticketBuy = (payload) => (dispatch) => {
     const {showID, seatID} = payload;
     const ticketID = Math.random().toString(36).substring(7);
-    dispatch(BUY_TICKET({
+    dispatch(buyTicket({
         showID,
         seatID,
         ticketID
@@ -49,14 +72,14 @@ export function IDGenerator(entityName, state) {
     return id;
 }
 
-function prepareShowData(getState, payload) {
+export function prepareShowData(getState, payload) {
     const movie = getMovieByID(getState(), payload.movieID);
     const room = getRoomByID(getState(), payload.roomID);
     const dateTime = payload.dateTime;
 
     payload.movie = {
-        title: movie.movieTitle,
-        duration: movie.movieTime,
+        movieTitle: movie.movieTitle,
+        movieTime: movie.movieTime,
     };
 
     payload.room = {
@@ -66,7 +89,7 @@ function prepareShowData(getState, payload) {
 
 
     payload.startTime = moment(dateTime).format('YYYY-MM-DD HH:mm:ss');
-    payload.endTime = moment(dateTime).add(movie.duration, 'minutes').format('YYYY-MM-DD HH:mm:ss');
+    payload.endTime = moment(dateTime).add(movie.movieTime, 'minutes').format('YYYY-MM-DD HH:mm:ss');
 
     payload.seats = {};
     for (let i = 1; i <= room.capacity; i++) {

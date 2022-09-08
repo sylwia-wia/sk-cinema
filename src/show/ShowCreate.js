@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import ShowForm from "./ShowForm";
 import {useDispatch, useSelector} from "react-redux";
 import {showCreate} from "../redux/show/actions";
+import {getAllMovies} from "../redux/movie/actions";
+import {getAllRooms} from "../redux/room/actions";
 
 
 export default function ShowCreate() {

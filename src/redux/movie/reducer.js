@@ -1,17 +1,17 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {CREATE_MOVIE, DELETE_MOVIE, UPDATE_MOVIE} from "./actions";
+import {createMovie, deleteMovie, updateMovie} from "./actions";
 
 const initialState = {}
 
 export default createReducer(initialState, (builder) => {
         builder
-            .addCase(CREATE_MOVIE, (state, action) => {
+            .addCase(createMovie, (state, action) => {
                 state[action.payload.movieID] = action.payload;
             })
-            .addCase(UPDATE_MOVIE, (state, action) => {
+            .addCase(updateMovie, (state, action) => {
                 state[action.payload.movieID] = action.payload;
             })
-            .addCase(DELETE_MOVIE, (state, action) => {
+            .addCase(deleteMovie, (state, action) => {
                 delete state[action.payload];
             })
     }

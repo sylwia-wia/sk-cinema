@@ -2,19 +2,33 @@ import React, {useState} from "react";
 import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import FilteredShows from "./FilteredShows";
-import { useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getAllShows} from "../redux/show/actions";
 
 export default function Show() {
     const [filteredMovies, setFilteredMovies] = useState('');
-    const shows = useSelector((store) => store.show);
+    const shows = useSelector((state) => state.show);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllShows());
+    },[]);
 
     let filterByMovie;
-    if(shows){
-        Object.values(shows).filter(movieTitle => movieTitle.movie.title===filteredMovies);
+    if (Object.keys(shows).length > 0) {
+        console.log(Object.keys(shows).length);
+        Object.values(shows).filter(idx =>
+            idx.movie.movieTitle===filteredMovies
+        );
     }
 
      if (filteredMovies) {
-        const filteringMovies = Object.values(shows).filter(movieTitle => movieTitle.movie.title.toLowerCase().includes(filteredMovies.toLowerCase()));
+         const filteringMovies = Object.values(shows).filter(idx => {
+             idx.movie.movieTitle.toLowerCase().includes(filteredMovies.toLowerCase());
+
+         });
+
         if (filteringMovies) {
             filterByMovie = [<FilteredShows key={filteredMovies} filterShow={filteringMovies} />];
         } else {

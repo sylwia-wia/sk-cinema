@@ -17,15 +17,14 @@ export default function FilteredShows(props) {
     }
 
     const rekordyTabeli = Object.values(filterShow).map((show, index) => {
-        const bgColor = moment().isAfter(show.startTime) && moment().isBefore(show.endTime) ? 'bg-warning' : '';
-
+        const bgColor = moment().isAfter(show.showDate) && moment().isBefore(show.endTime) ? 'bg-warning' : '';
         return (
             <tr key={index} className={bgColor}>
                 <td>
                     {index + 1}
                 </td>
                 <td>
-                    {show.movie.title}
+                    {show.movie.movieTitle}
                 </td>
                 <td>
                     {show.room.roomNumber}
@@ -35,7 +34,7 @@ export default function FilteredShows(props) {
                 </td>
                 <td>
 
-                    {show.movie.duration}
+                    {show.movie.movieTime}
                 </td>
                 <td>
                     {moment(show.showDate).format('YYYY-MM-DD HH:mm')}

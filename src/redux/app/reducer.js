@@ -1,15 +1,22 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {LOADER} from "./actions";
+import {clearErrorMessageAction, errorMessageAction, loader} from "./actions";
 
 const initialState = {
-    isLoading: false
+    isLoading: false,
+    errorMessage: null,
 };
 
 export default createReducer(initialState, (builder) => {
     builder
-        .addCase(LOADER, (state, action) => {
+        .addCase(loader, (state, action) => {
             state["isLoading"] = action.payload;
         } )
+        .addCase(errorMessageAction, (state, action) => {
+            state['errorMessage'] = action.payload;
+        })
+        .addCase(clearErrorMessageAction, (state, action) => {
+            state['errorMessage'] = null;
+        })
 
 })
 

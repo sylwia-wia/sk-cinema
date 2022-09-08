@@ -1,8 +1,8 @@
 import {
-    BUY_TICKET,
-    CREATE_SHOW,
-    DELETE_SHOW,
-    UPDATE_SHOW,
+    buyTicket,
+    createShow,
+    deleteShow,
+    updateShow,
 } from "./actions";
 import {createReducer} from "@reduxjs/toolkit";
 
@@ -10,16 +10,16 @@ const initialState = {};
 
 export default createReducer(initialState, (builder) => {
     builder
-        .addCase(CREATE_SHOW, (state, action) => {
+        .addCase(createShow, (state, action) => {
             state[action.payload.showID] = action.payload;
         })
-        .addCase(UPDATE_SHOW, (state, action) => {
+        .addCase(updateShow, (state, action) => {
             state[action.payload.showID] = action.payload;
         })
-        .addCase(DELETE_SHOW, (state, action) => {
+        .addCase(deleteShow, (state, action) => {
             delete state[action.payload];
         })
-        .addCase(BUY_TICKET, (state, action) => {
+        .addCase(buyTicket, (state, action) => {
             state[action.payload.showID].seats[action.payload.seatID] = action.payload.ticketID;
         })
 })

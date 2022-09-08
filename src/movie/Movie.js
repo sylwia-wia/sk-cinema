@@ -1,17 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Table} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {Pencil, Trash3} from "react-bootstrap-icons";
 import {useDispatch, useSelector} from "react-redux";
-import {DELETE_MOVIE} from "../redux/movie/actions";
-
+import {getAllMovies, movieDelete} from "../redux/movie/actions";
 
 export default function Movie() {
     const movies = useSelector((store) => store.movie);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(getAllMovies());
+    },[]);
+
     function onClickRemoveHandler(movieID) {
-        dispatch(DELETE_MOVIE(movieID));
+        dispatch(movieDelete(movieID));
     }
 
     const rekordyTabeli =  Object.values(movies).map((movie, index) => (

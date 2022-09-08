@@ -4,16 +4,22 @@ import {Link} from "react-router-dom";
 import {Pencil, Trash3} from 'react-bootstrap-icons';
 import {useDispatch, useSelector} from "react-redux";
 import {roomDelete} from "../redux/room/actions";
+import {useEffect} from "react";
+import {getAllRooms} from "../redux/room/actions";
+
 
 function Rooms() {
     const rooms = useSelector((state) => state.room);
     const dispatch = useDispatch();
-    const isLoading = useSelector((state) => state.app);
+
+
+    useEffect(() => {
+        dispatch(getAllRooms());
+    },[]);
 
     function onClickRemoveHandler(roomID)  {
         dispatch(roomDelete(roomID));
     }
-
     const rekordyTabeli = Object.values(rooms).map((room, index) => (
         <tr key={index}>
             <td>
@@ -60,18 +66,7 @@ function Rooms() {
                 <tbody>
                 {rekordyTabeli}
                 </tbody>
-
             </Table>
-            {isLoading.isLoading === true ?
-                <div className={'row'}>
-                    <div className={'col-12 text-center'}>
-                        <span className="spinner-border spinner-border-sm"  style={{width: '3rem', height: '3rem'}} role="status" aria-hidden="true"></span>
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-                : ''
-            }
-            <p></p>
 
         </>
     );
