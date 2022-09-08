@@ -18,17 +18,17 @@ export default function RoomForm(props) {
         onFormSubmitHandler(data);
     };
 
-    const isExist = (roomNumber) => {
-        if (isEditing && room.roomNumber === roomNumber) {
+    const isExist = (roomNumber)  => {
+        Number(roomNumber);
+        if(isEditing && room.roomNumber === roomNumber) {
             return true;
         }
 
-        if (Object.values(rooms).filter(room => room.roomNumber === roomNumber).length === 0 ) {
+        if(Object.values(rooms).filter(ro => Number(roomNumber) === ro.roomNumber).length === 0)
             return true;
-        }
 
-        return 'Podana sala już istnieje';
-    };
+        return "Podany film już istnieje";
+    }
 
     const roomValidation = {
         roomNumber: {

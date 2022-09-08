@@ -5,6 +5,7 @@ import {getAllMovies} from "./redux/movie/actions";
 import {getAllRooms} from "./redux/room/actions";
 import {useDispatch, useSelector} from "react-redux";
 import 'bootstrap/dist/js/bootstrap';
+import {getAllShows} from "./redux/show/actions";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
     useEffect(() => {
         dispatch(getAllMovies());
         dispatch(getAllRooms());
+        dispatch(getAllShows());
     }, [])
 
     const errorMessage = useSelector((state) => state.app.errorMessage);

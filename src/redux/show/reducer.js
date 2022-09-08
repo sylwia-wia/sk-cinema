@@ -20,6 +20,6 @@ export default createReducer(initialState, (builder) => {
             delete state[action.payload];
         })
         .addCase(buyTicket, (state, action) => {
-            state[action.payload.showID].seats[action.payload.seatID] = action.payload.ticketID;
+            state[action.payload.showID].showSeats[action.payload.seatID].ticket = action.payload.ticketID;
         })
 })

@@ -22,8 +22,10 @@ export default function MovieForm(props) {
         if(isEditing && movie.movieTitle === movieTitle) {
             return true;
         }
-        if(Object.values(movies).filter(movie => movie.movieTitle === movieTitle).length === 0)
+        if(Object.values(movies).filter(movie => movie.movieTitle === movieTitle).length === 0) {
             return true;
+        }
+
         return "Podany film już istnieje";
     }
 

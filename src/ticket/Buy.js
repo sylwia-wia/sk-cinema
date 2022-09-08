@@ -6,11 +6,11 @@ import {useDispatch, useSelector} from "react-redux";
 
 export default function Buy (props) {
     const {addTicket} = props;
-    const {showID} = useParams();
-    const dispatch = useDispatch();
+    // const {showID} = useParams();
+     const dispatch = useDispatch();
     const navigate = useNavigate();
     const shows = useSelector((state) => state.show);
-    const show = useSelector((state) => state.show[showID]);
+    // const show = useSelector((state) => state.show[showID]);
 
     function onFormSubmitHandler(showID, seatID) {
         dispatch(ticketBuy({
@@ -22,7 +22,7 @@ export default function Buy (props) {
 
     return (
         <>
-            <ShowDetail onFormSubmitHAndler={onFormSubmitHandler} shows={shows} show={show} addTicket={addTicket}/>
+            <ShowDetail onFormSubmitHAndler={onFormSubmitHandler} shows={shows}  addTicket={addTicket}/>
         </>
     );
 

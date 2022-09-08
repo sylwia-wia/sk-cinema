@@ -10,12 +10,19 @@ export const convertRoomApiResponse = (response) => ({
     roomID: response.id,
 })
 
-export const convertShowApiResponse = response => ({
-    showID: response.id,
-    showDate: response.show,
-    endTime: response.endTime,
-    movie: response.movie,
-    room: response.room,
-    showSeats: response.showSeats,
+export const convertShowApiResponse = response => {
+    const showSeats = {};
 
-})
+    Object.values(response.showSeats).forEach((showSeat) => {
+        showSeats[showSeat.number] = showSeat;
+    })
+
+    return {
+        showID: response.id,
+        showDate: response.show,
+        endTime: response.endTime,
+        movie: response.movie,
+        room: response.room,
+        showSeats: showSeats,
+    }
+};

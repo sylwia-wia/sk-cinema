@@ -4,14 +4,20 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate, useParams} from "react-router-dom";
 import React from "react";
+import {useSelector} from "react-redux";
 
 export default function ShowDetail(props) {
-    const {show} = props;
+    //const {show} = props;
     const navigate = useNavigate();
     const {showID} = useParams();
+    const show = useSelector((state) => state.show[showID]);
 
-    function handleSeatClick(seatID) {
-        if (show.seats[seatID] !== null) {
+    if (show === undefined) {
+        return '';
+    }
+
+    function handleSeatClick(seatNumber) {
+        if (show.showSeats[seatNumber].ticket !== null) {
             return;
         }
 
@@ -22,8 +28,8 @@ export default function ShowDetail(props) {
                 {
                     label: 'Tak',
                     onClick: () => {
-                        props.onFormSubmitHAndler(showID, seatID);
-                        navigate(`/show/${showID}/ticket/${seatID}`)
+                        props.onFormSubmitHAndler(showID, seatNumber);
+                        navigate(`/show/${showID}/ticket/${seatNumber}`)
                     }
                 },
                 {
@@ -36,19 +42,20 @@ export default function ShowDetail(props) {
 
         };
 
+
         confirmAlert(confirm);
     }
 
-    const seatCards = Object.keys(show.seats).map(seatID => {
-        const bgColor = show.seats[seatID] !== null ? 'bg-secondary' : 'bg-success';
-
+    const seatCards = Object.values(show.showSeats).map(seat => {
+        const bgColor = seat.ticket !== null ? 'bg-secondary' : 'bg-success';
+        //console.log(show.showSeats[seat].ticket);
         return (
-            <div className="col-1" key={seatID}>
+            <div className="col-1" key={seat.id}>
                 <div className={`${bgColor} d-inline-flex ms-4 p-4 mt-4 me-3 justify-content-center seat`}
-                     onClick={() => handleSeatClick(seatID)}
-                     role={`${show.seats[seatID] === null ? 'button' : ''}`}
+                     onClick={() => handleSeatClick(seat.number)}
+                     role={`${seat.ticket === null ? 'button' : ''}`}
                 >
-                    {seatID}
+                    {seat.number}
                 </div>
             </div>
         );

@@ -17,9 +17,9 @@ export default function Ticket() {
                             <div className={"card-header  bg-success text-center text-white"}><h5 className={"mt-2"}>Kino Filmuś</h5></div>
                             <div className={"card-body"}>
                                 <small>Numer biletu:</small>
-                                <h5 className={"card-title"}> {show.seats[seatID]}</h5>
+                                <h5 className={"card-title"}> {show.showSeats[seatID].ticket}</h5>
                                 <small>Tytuł filmu:</small>
-                                <h5 className={"card-title"}> {show.movie.title}</h5>
+                                <h5 className={"card-title"}> {show.movie.movieTitle}</h5>
                                 <small>Sala: </small>
                                 <h5 className={"card-title"}>{show.room.roomNumber}</h5>
                                 <small>Miejsce: </small>

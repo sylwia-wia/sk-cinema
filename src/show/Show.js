@@ -11,13 +11,8 @@ export default function Show() {
     const shows = useSelector((state) => state.show);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getAllShows());
-    },[]);
-
     let filterByMovie;
     if (Object.keys(shows).length > 0) {
-        console.log(Object.keys(shows).length);
         Object.values(shows).filter(idx =>
             idx.movie.movieTitle===filteredMovies
         );
