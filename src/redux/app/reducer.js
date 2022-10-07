@@ -4,6 +4,8 @@ import {clearErrorMessageAction, errorMessageAction, loader} from "./actions";
 const initialState = {
     isLoading: false,
     errorMessage: null,
+    isLogged: false,
+    userProfile: {},
 };
 
 export default createReducer(initialState, (builder) => {

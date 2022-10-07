@@ -1,28 +1,35 @@
 import './App.css';
 import AppLayout from "./AppLayout"
-import React, {useEffect, useRef} from "react";
+import React, {useEffect} from "react";
 import {getAllMovies} from "./redux/movie/actions";
 import {getAllRooms} from "./redux/room/actions";
 import {useDispatch, useSelector} from "react-redux";
 import 'bootstrap/dist/js/bootstrap';
 import {getAllShows} from "./redux/show/actions";
+import {setLoader} from "./redux/app/actions";
 
 function App() {
 
     const dispatch = useDispatch();
 
+
     useEffect(() => {
-        dispatch(getAllMovies());
-        dispatch(getAllRooms());
-        dispatch(getAllShows());
+        if(localStorage.getItem('token')) {
+            dispatch(getAllMovies());
+            dispatch(getAllRooms());
+            dispatch(getAllShows());
+        }
+
     }, [])
 
     const errorMessage = useSelector((state) => state.app.errorMessage);
     const isLoading = useSelector((state) => state.app.isLoading);
 
+
+    dispatch(setLoader(false));
      return (
         <>
-            <AppLayout/>
+            <AppLayout />
 
             {errorMessage !== null ?
                 <div className={'row error-view'} >

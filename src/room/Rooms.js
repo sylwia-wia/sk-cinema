@@ -17,6 +17,8 @@ function Rooms() {
         dispatch(getAllRooms());
     },[]);
 
+
+
     function onClickRemoveHandler(roomID)  {
         dispatch(roomDelete(roomID));
     }

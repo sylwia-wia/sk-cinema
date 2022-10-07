@@ -3,6 +3,9 @@ import {NavLink} from "react-router-dom";
 import AllRoutes from "./routes/AllRoutes";
 
 function AppLayout() {
+    // const authenticated = useSelector((store) => store.authorisation.authenticated);
+    const authenticated = localStorage.getItem('token') !== null;
+
     return (
        <>
            <header>
@@ -12,20 +15,24 @@ function AppLayout() {
                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                        <span className="navbar-toggler-icon"></span>
                    </button>
-                   <div className="collapse navbar-collapse" id="navbarNav">
-                       <ul className="navbar-nav">
-                           <li className="nav-item active">
-                               <NavLink to="/rooms" className="nav-link">Sale</NavLink>
-                           </li>
-                           <li className="nav-item">
-                               <NavLink to="/show" className="nav-link">Seanse</NavLink>
-                           </li>
-                           <li className="nav-item">
-                               <NavLink to="/movie" className="nav-link">Filmy</NavLink>
-                           </li>
+                   {(authenticated===true) ?
+                       <div className="collapse navbar-collapse" id="navbarNav">
+                           <ul className="navbar-nav">
+                               <li className="nav-item active">
+                                   <NavLink to="/rooms" className="nav-link">Sale</NavLink>
+                               </li>
+                               <li className="nav-item">
+                                   <NavLink to="/show" className="nav-link">Seanse</NavLink>
+                               </li>
+                               <li className="nav-item">
+                                   <NavLink to="/movie" className="nav-link">Filmy</NavLink>
+                               </li>
 
-                       </ul>
-                   </div>
+                           </ul>
+                       </div>
+                       :
+                      ''
+                   }
                </nav>
            </header>
 

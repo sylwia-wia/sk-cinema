@@ -19,6 +19,5 @@ export const updateMovieApiCall = (payload) => {
     return client.post(`/movies/${id}`, formData)
 
 }
-
 export const deleteMovieApiCall = (movieID) => client.delete(`/movies/${movieID}`)
 

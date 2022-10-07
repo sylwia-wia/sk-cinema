@@ -14,15 +14,4 @@ export const createShowApiCall = (payload) => {
 
 }
 
-// export const buyTicketApiCall = (payload) => {
-//     const {showID, seatID} = payload;
-//     const ticketID = Math.random().toString(36).substring(7);
-//
-//     const formData = new FormData();
-//     formData.append('showID', payload.showID);
-//     formData.append('seatID', payload.seatID);
-//     formData.append('ticketID', payload.ticketID);
-//
-//     return client.post(`/shows/${showID}/buyTicket `, formData);
-// }
 

@@ -48,7 +48,7 @@ export default function ShowDetail(props) {
 
     const seatCards = Object.values(show.showSeats).map(seat => {
         const bgColor = seat.ticket !== null ? 'bg-secondary' : 'bg-success';
-        //console.log(show.showSeats[seat].ticket);
+
         return (
             <div className="col-1" key={seat.id}>
                 <div className={`${bgColor} d-inline-flex ms-4 p-4 mt-4 me-3 justify-content-center seat`}
